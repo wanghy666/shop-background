@@ -15,14 +15,14 @@ const routes = [{
       meta: {
         title: '后台首页'
       },
-      component: () => import('@/views/Index.vue')
+      component: () => import('@/views/home/home/Index.vue')
     }, {
       path: 'image',
       name: 'image',
       meta: {
         title: '相册管理'
       },
-      component: () => import('@/views/Image.vue')
+      component: () => import('@/views/home/image/Image.vue')
     },
     {
       path: 'goods',
@@ -30,7 +30,7 @@ const routes = [{
       meta: {
         title: '商品列表'
       },
-      component: () => import('@/views/Goods.vue')
+      component: () => import('@/views/home/shop/Goods.vue')
     },
     {
       path: 'category',
@@ -38,7 +38,7 @@ const routes = [{
       meta: {
         title: '分类列表'
       },
-      component: () => import('@/views/Category.vue')
+      component: () => import('@/views/shop/category/Category.vue')
     },
   ]
 }, {
