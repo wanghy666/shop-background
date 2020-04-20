@@ -210,21 +210,15 @@ export default {
 }
 .container-wrap {
   height: calc(100vh - 60px);
+  .el-aside {
+    height: 100%;
+    border: 1px solid #eee;
+  }
+  /deep/.el-menu {
+    border: none;
+  }
 }
-
-/deep/.el-aside {
-  background-color: #d3dce6;
-  color: #333;
-  text-align: center;
-  line-height: 200px;
-  // height: 100vh;
-}
-
 /deep/.el-main {
-  background-color: #e9eef3;
-  color: #333;
-  text-align: center;
-  line-height: 160px;
-  // height: 100vh;
+  padding: 0;
 }
 </style>
