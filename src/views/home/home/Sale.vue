@@ -7,17 +7,17 @@
                         <span>销售情况统计</span>
                         <span>需要关注的店铺信息及待处理事项</span>
                     </div>
-                    <ul class="content">
+                    <ul class="content" :sale="sale">
                         <li>
                             <div class="left">昨日销量</div>
                             <div class="right">
                                 <div class="rightTop">
                                     <span>订单金额(元)</span>
-                                    <span>12</span>
+                                    <span>{{sale.yesterdayMoney}}</span>
                                 </div>
                                 <div>
                                     <span>订单量(件)</span>
-                                    <span>12</span>
+                                    <span>{{sale.yesterdaynum}}</span>
                                 </div>
                             </div>
                         </li>
@@ -26,11 +26,11 @@
                             <div class="right">
                                 <div class="rightTop">
                                     <span>订单金额(元)</span>
-                                    <span>12</span>
+                                    <span>{{sale.monthmoney}}</span>
                                 </div>
                                 <div>
                                     <span>订单量(件)</span>
-                                    <span>12</span>
+                                    <span>{{sale.monthnum}}</span>
                                 </div>
                             </div>
                         </li>
@@ -77,6 +77,12 @@ export default {
     name:"sale",
     data(){
         return{
+            sale:{
+                yesterdayMoney:12,
+                yesterdaynum:10,
+                monthmoney:5,
+                monthnum:15
+            },
             tableData: [{
                 date: '1',
                 name: '小天鹅',

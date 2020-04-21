@@ -4,8 +4,8 @@
             <el-col :span="6">
                 <div class="grid-content bg-purple">
                     <div class="left"></div>
-                    <div class="right">
-                        <div>30</div>
+                    <div class="right" :nums="nums">
+                        <div>{{nums.follow}}</div>
                         <div>关注人数(个)</div>
                     </div>
                 </div>
@@ -14,8 +14,8 @@
                 <div class="grid-content bg-purple">
                     <div class="left"></div>
                     <div class="right">
-                        <div>30</div>
-                        <div>关注人数(个)</div>
+                        <div>{{nums.order}}</div>
+                        <div>订单总数(笔)</div>
                     </div>
                 </div>
             </el-col>
@@ -23,8 +23,8 @@
                 <div class="grid-content bg-purple">
                     <div class="left"></div>
                     <div class="right">
-                        <div>30</div>
-                        <div>关注人数(个)</div>
+                        <div>{{nums.money}}</div>
+                        <div>今日订单总金额(元)</div>
                     </div>
                 </div>
             </el-col>
@@ -32,8 +32,8 @@
                 <div class="grid-content bg-purple">
                     <div class="left"></div>
                     <div class="right">
-                        <div>30</div>
-                        <div>关注人数(个)</div>
+                        <div>{{nums.volume}}</div>
+                        <div>本月销量(笔)</div>
                     </div>
                 </div>
             </el-col>
@@ -45,7 +45,14 @@
 export default {
     name:'sum',
     data(){
-        return{}
+        return{
+            nums:{
+                follow:30,
+                order:120,
+                money:4183.80,
+                volume:100       
+            }
+        }
     }
 }
 </script>

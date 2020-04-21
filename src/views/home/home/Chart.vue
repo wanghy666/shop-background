@@ -7,22 +7,22 @@
                         <span>店铺及商品提示</span>
                         <span>需要关注的店铺信息及待处理事项</span>
                     </div>
-                    <ul class="content">
+                    <ul class="content" :shop='shop'>
                         <li>
-                            <div class="num">64</div>
+                            <div class="num">{{shop.saleing}}</div>
                             <div class="state">出售中</div>
                         </li>
                         <li>
-                            <div class="num">64</div>
-                            <div class="state">出售中</div>
+                            <div class="num">{{shop.reply}}</div>
+                            <div class="state">待回复</div>
                         </li>
                         <li>
-                            <div class="num">64</div>
-                            <div class="state">出售中</div>
+                            <div class="num">{{shop.warning}}</div>
+                            <div class="state">库存预警</div>
                         </li>
                         <li>
-                            <div class="num">64</div>
-                            <div class="state">出售中</div>
+                            <div class="num">{{shop.warehouse}}</div>
+                            <div class="state">仓库中</div>
                         </li>
                     </ul>
                 </li>
@@ -31,29 +31,29 @@
                         <span>交易提示</span>
                         <span>需要立即处理的交易订单</span>
                     </div>
-                    <ul class="content2">
+                    <ul class="content2" :tips="tips">
                         <li>
-                            <div class="num">64</div>
-                            <div class="state">出售中</div>
+                            <div class="num">{{tips.waitPay}}</div>
+                            <div class="state">待付款</div>
                         </li>
                         <li>
-                            <div class="num">64</div>
-                            <div class="state">出售中</div>
+                            <div class="num">{{tips.waitDelivery}}</div>
+                            <div class="state">待发货</div>
                         </li>
                         <li>
-                            <div class="num">64</div>
-                            <div class="state">出售中</div>
+                            <div class="num">{{tips.delivering}}</div>
+                            <div class="state">已发货</div>
                         </li>
                         <li>
-                            <div class="num">64</div>
-                            <div class="state">出售中</div></li>
+                            <div class="num">{{tips.receivingGoods}}</div>
+                            <div class="state">已收货</div></li>
                         <li>
-                            <div class="num">64</div>
-                            <div class="state">出售中</div>
+                            <div class="num">{{tips.refunding}}</div>
+                            <div class="state">退款中</div>
                         </li>
                         <li>
-                            <div class="num">64</div>
-                            <div class="state">出售中</div>
+                            <div class="num">{{tips.service}}</div>
+                            <div class="state">待售后</div>
                         </li>
                     </ul>
                 </li>
@@ -67,7 +67,22 @@
 export default {
     name:"chart",
     data(){
-        return{}
+        return{
+            shop:{
+                saleing:64,
+                reply:10,
+                warning:0,
+                warehouse:3
+            },
+            tips:{
+                waitPay:7,
+                waitDelivery:10,
+                delivering:5,
+                receivingGoods:3,
+                refunding:2,
+                service:4
+            }
+        }
     },
     mounted(){
        this.initecharts()
@@ -198,6 +213,7 @@ export default {
                     span:last-child{
                         font-size: 14px;
                         font-weight: 600;
+                        color:#377e7f;
                     }
                 }
                 .content{
@@ -267,11 +283,8 @@ export default {
         }
     }
     .Echarts{
-        // width:585px;
-        // height:370px;
         border:2px solid #dfe2e6;
         border-radius: 4px;
-        background:tomato;
     }
 }
 </style>
