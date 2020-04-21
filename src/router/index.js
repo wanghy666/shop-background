@@ -30,7 +30,7 @@ const routes = [{
       meta: {
         title: '商品列表'
       },
-      component: () => import('@/views/home/shop/Goods.vue')
+      component: () => import('@/views/home/shop/Index.vue')
     },
     {
       path: 'category',
