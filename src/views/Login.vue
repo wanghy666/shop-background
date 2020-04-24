@@ -11,7 +11,7 @@
         <el-form-item prop="password">
           <el-input v-model="ruleForm.password" placeholder="请输入密码"></el-input>
         </el-form-item>
-        <el-form-item prop="password">
+        <el-form-item>
           <el-button
             @click="onLogin"
             class="text-white"
@@ -23,6 +23,8 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
+import { stat } from "fs";
 export default {
   data() {
     return {
@@ -44,7 +46,29 @@ export default {
   },
   methods: {
     onLogin() {
-      this.$router.push("/index");
+      this.$refs.ruleForm.validate(e => {
+        if (!e) {
+          return;
+        }
+        this.axios
+          .post("/admin/login", {
+            username: this.ruleForm.username,
+            password: this.ruleForm.password
+          })
+          .then(res => {
+            let { data } = res.data;
+            console.log(data);
+            //存储用户信息(vuex+本地存储)
+            this.$store.commit("login", data);
+            //路由跳转
+            this.$router.push({ name: "index" });
+            // 成功提示
+            this.$message({
+              message: "登陆成功",
+              type: "success"
+            });
+          });
+      });
     }
   }
 };

@@ -22,10 +22,10 @@
             <template slot="title">
               <el-avatar
                 size="small"
-                src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+                :src="user.avatar?'user.avatar':'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"
                 class="mr-1"
               ></el-avatar>
-              <span class="userName">admin</span>
+              <span class="userName">{{user.username}}</span>
             </template>
             <el-menu-item index="100-1">修改</el-menu-item>
             <el-menu-item index="100-2">退出</el-menu-item>
@@ -58,6 +58,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import { stat } from "fs";
 export default {
   name: "Layout",
   data() {
@@ -146,6 +148,9 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      user: state => state.user
+    }),
     //当前页的左侧菜单数据
     leftMenuList() {
       return this.topMenuList[this.topActiveIndex].subMenuList || [];
@@ -174,7 +179,7 @@ export default {
       if (key === "100-1") {
         return console.log("修改");
       } else if (key === "100-2") {
-        return console.log("退出");
+        return this.onLogout();
       }
       //1.获取当前顶部导航索引
       this.topActiveIndex = key;
@@ -182,6 +187,32 @@ export default {
       //2.页面路由跳转
       if (this.leftMenuList.length === 0) return;
       this.$router.push(this.leftMenuList[this.leftActiveIndex].pathName);
+    },
+    //退出
+    onLogout() {
+      this.axios
+        .post(
+          "/admin/logout",
+          {},
+          {
+            headers: {
+              token: this.user.token
+            }
+          }
+        )
+        .then(res => {
+          //修改vuex状态，清空本地存储
+          this.$store.commit("logout");
+          //成功提示
+          this.$message.success("退出成功");
+          //路由跳转
+          this.$router.push("/login");
+        })
+        .catch(err => {
+          //防止出现token过期出现的错误捕获，清除数据，路由跳转
+          this.$store.commit("logout");
+          this.$router.push("/login");
+        });
     },
     //点击切换左侧导航
     handleSelectLeftMenu(key) {
