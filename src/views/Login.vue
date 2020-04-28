@@ -16,6 +16,7 @@
             @click="onLogin"
             class="text-white"
             style="background-color:teal;width:100%"
+            :loading="isLoading"
           >立即登录</el-button>
         </el-form-item>
       </el-form>
@@ -28,6 +29,7 @@ import { stat } from "fs";
 export default {
   data() {
     return {
+      isLoading: false,
       ruleForm: {
         username: "",
         password: ""
@@ -47,9 +49,11 @@ export default {
   methods: {
     onLogin() {
       this.$refs.ruleForm.validate(e => {
+        //!e返回的结果为false，表示当前校验未通过
         if (!e) {
           return;
         }
+        this.isLoading = true;
         this.axios
           .post("/admin/login", {
             username: this.ruleForm.username,
@@ -58,8 +62,11 @@ export default {
           .then(res => {
             let { data } = res.data;
             console.log(data);
+            this.isLoading = false;
             //存储用户信息(vuex+本地存储)
             this.$store.commit("login", data);
+            //导航菜单
+            this.$store.commit("createMenuTree", data.tree);
             //路由跳转
             this.$router.push({ name: "index" });
             // 成功提示

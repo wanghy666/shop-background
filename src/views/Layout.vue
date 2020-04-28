@@ -14,8 +14,8 @@
           active-text-color="#ffd04b"
         >
           <el-menu-item
-            :index="item.index"
-            v-for="(item) in topMenuList"
+            :index="index.toString()"
+            v-for="(item,index) in topMenuList"
             :key="item.index"
           >{{item.name}}</el-menu-item>
           <el-submenu index="100">
@@ -42,7 +42,11 @@
             @open="handleOpen"
             @close="handleClose"
           >
-            <el-menu-item :index="item.index" v-for="item in leftMenuList" :key="item.index">
+            <el-menu-item
+              :index="index.toString()"
+              v-for="(item,index) in leftMenuList"
+              :key="item.index"
+            >
               <i :class="item.icon"></i>
               <span slot="title">{{item.name}}</span>
             </el-menu-item>
@@ -64,96 +68,99 @@ export default {
   name: "Layout",
   data() {
     return {
-      topActiveIndex: "0", //顶部一级导航选中索引（从0开始计算）
+      // topActiveIndex: "0" //顶部一级导航选中索引（从0开始计算）
       //   leftActiveIndex: "1", //左侧二级导航选中索引
-      topMenuList: [
-        {
-          index: "0",
-          name: "首页",
-          subMenuIndex: "0",
-          subMenuList: [
-            {
-              index: "0",
-              name: "后台首页",
-              icon: "el-icon-menu",
-              pathName: "/index"
-            },
-            {
-              index: "1",
-              name: "相册管理",
-              icon: "el-icon-document",
-              pathName: "/image"
-            },
-            {
-              index: "2",
-              name: "商品列表",
-              icon: "el-icon-setting",
-              pathName: "/goods"
-            }
-          ]
-        },
-        {
-          index: "1",
-          name: "商品",
-          subMenuIndex: "0",
-          subMenuList: [
-            {
-              index: "0",
-              name: "商品列表",
-              icon: "el-icon-menu",
-              pathName: "/goods"
-            },
-            {
-              index: "1",
-              name: "分类列表",
-              icon: "el-icon-document",
-              pathName: "/category"
-            }
-            // { index: "2", name: "商品规格", icon: "el-icon-setting" },
-            // { index: "3", name: "商品类型", icon: "el-icon-menu" },
-            // { index: "4", name: "商品评论", icon: "el-icon-document" }
-          ]
-        },
-        {
-          index: "2",
-          name: "订单",
-          subMenuIndex: "0",
-          subMenuList: [
-            // { index: "0", name: "订单管理", icon: "el-icon-menu" },
-            // { index: "1", name: "发票管理", icon: "el-icon-document" },
-            // { index: "2", name: "售后服务", icon: "el-icon-setting" }
-          ]
-        },
-        {
-          index: "3",
-          name: "会员",
-          subMenuIndex: "0",
-          subMenuList: [
-            // { index: "0", name: "会员列表", icon: "el-icon-menu" },
-            // { index: "1", name: "会员等级", icon: "el-icon-document" }
-          ]
-        },
-        {
-          index: "4",
-          name: "设置",
-          subMenuIndex: "0",
-          subMenuList: [
-            // { index: "0", name: "基础设置", icon: "el-icon-menu" },
-            // { index: "1", name: "物流设置", icon: "el-icon-document" },
-            // { index: "2", name: "管理员设置", icon: "el-icon-setting" },
-            // { index: "3", name: "交易设置", icon: "el-icon-setting" }
-          ]
-        }
-      ]
+      // topMenuList: [
+      //   {
+      //     index: "0",
+      //     name: "首页",
+      //     subMenuIndex: "0",
+      //     subMenuList: [
+      //       {
+      //         index: "0",
+      //         name: "后台首页",
+      //         icon: "el-icon-menu",
+      //         pathName: "/index"
+      //       },
+      //       {
+      //         index: "1",
+      //         name: "相册管理",
+      //         icon: "el-icon-document",
+      //         pathName: "/image"
+      //       },
+      //       {
+      //         index: "2",
+      //         name: "商品列表",
+      //         icon: "el-icon-setting",
+      //         pathName: "/goods"
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     index: "1",
+      //     name: "商品",
+      //     subMenuIndex: "0",
+      //     subMenuList: [
+      //       {
+      //         index: "0",
+      //         name: "商品列表",
+      //         icon: "el-icon-menu",
+      //         pathName: "/goods"
+      //       },
+      //       {
+      //         index: "1",
+      //         name: "分类列表",
+      //         icon: "el-icon-document",
+      //         pathName: "/category"
+      //       }
+      //       // { index: "2", name: "商品规格", icon: "el-icon-setting" },
+      //       // { index: "3", name: "商品类型", icon: "el-icon-menu" },
+      //       // { index: "4", name: "商品评论", icon: "el-icon-document" }
+      //     ]
+      //   },
+      //   {
+      //     index: "2",
+      //     name: "订单",
+      //     subMenuIndex: "0",
+      //     subMenuList: [
+      //       // { index: "0", name: "订单管理", icon: "el-icon-menu" },
+      //       // { index: "1", name: "发票管理", icon: "el-icon-document" },
+      //       // { index: "2", name: "售后服务", icon: "el-icon-setting" }
+      //     ]
+      //   },
+      //   {
+      //     index: "3",
+      //     name: "会员",
+      //     subMenuIndex: "0",
+      //     subMenuList: [
+      //       // { index: "0", name: "会员列表", icon: "el-icon-menu" },
+      //       // { index: "1", name: "会员等级", icon: "el-icon-document" }
+      //     ]
+      //   },
+      //   {
+      //     index: "4",
+      //     name: "设置",
+      //     subMenuIndex: "0",
+      //     subMenuList: [
+      //       // { index: "0", name: "基础设置", icon: "el-icon-menu" },
+      //       // { index: "1", name: "物流设置", icon: "el-icon-document" },
+      //       // { index: "2", name: "管理员设置", icon: "el-icon-setting" },
+      //       // { index: "3", name: "交易设置", icon: "el-icon-setting" }
+      //     ]
+      //   }
+      // ]
     };
   },
   computed: {
     ...mapState({
-      user: state => state.user
+      user: state => state.user.user,
+      topMenuList: state => state.menu.topMenuList,
+      topActiveIndex: state => state.menu.topActiveIndex
     }),
     //当前页的左侧菜单数据
     leftMenuList() {
-      return this.topMenuList[this.topActiveIndex].subMenuList || [];
+      let item = this.topMenuList[this.topActiveIndex];
+      return item ? item.subMenuList : [];
     },
     //当前页的左侧索引
     // leftActiveIndex() {
@@ -161,19 +168,45 @@ export default {
     // }
     leftActiveIndex: {
       get() {
-        return this.topMenuList[this.topActiveIndex].subMenuIndex || "0";
+        let item = this.topMenuList[this.topActiveIndex];
+        return item ? item.subMenuIndex : "0";
       },
       set(val) {
-        this.topMenuList[this.topActiveIndex].subMenuIndex = val;
+        let item = this.topMenuList[this.topActiveIndex];
+        if (item) {
+          item.subMenuIndex = val;
+        }
       }
     }
   },
   created() {
-    //刷新后从本地存储中获取当前的顶部和侧边导航索引
-    this.topActiveIndex = localStorage.getItem("top") || "0";
-    this.leftActiveIndex = localStorage.getItem("left") || "0";
+    this.initNavBar();
+  },
+  watch: {
+    $route() {
+      //本地存储
+      console.log("改变了----");
+      localStorage.setItem("left", this.leftActiveIndex);
+      localStorage.setItem("top", this.topActiveIndex);
+    }
   },
   methods: {
+    initNavBar() {
+      //在本地存储中获取处理后的菜单数据
+      let toplist = JSON.parse(localStorage.getItem("topMenuList"));
+      if (toplist) {
+        this.$store.commit("changeMenuTree", toplist);
+        //初始化顶部菜单索引
+        let top = localStorage.getItem("top");
+        if (top) {
+          this.$store.commit("changeTopActiveIndex", top);
+        } else {
+          this.$store.commit("changeTopActiveIndex", "0");
+        }
+        //初始化左侧菜单索引
+        this.leftActiveIndex = localStorage.getItem("left") || "0";
+      }
+    },
     //点击切换顶部一级导航
     handleSelect(key) {
       if (key === "100-1") {
@@ -182,11 +215,19 @@ export default {
         return this.onLogout();
       }
       //1.获取当前顶部导航索引
-      this.topActiveIndex = key;
-      localStorage.setItem("top", this.topActiveIndex);
+      this.$store.commit("changeTopActiveIndex", key);
       //2.页面路由跳转
       if (this.leftMenuList.length === 0) return;
-      this.$router.push(this.leftMenuList[this.leftActiveIndex].pathName);
+      // 路由跳转（注意，后端path缺少了/,注意添加上）
+      this.$router.push(`/${this.leftMenuList[this.leftActiveIndex].pathName}`);
+    },
+    //点击切换左侧导航
+    handleSelectLeftMenu(key) {
+      //获取左侧导航的索引
+      this.leftActiveIndex = key;
+      localStorage.setItem("left", this.leftActiveIndex);
+      //路由跳转
+      this.$router.push(`/${this.leftMenuList[key].pathName}`);
     },
     //退出
     onLogout() {
@@ -195,9 +236,7 @@ export default {
           "/admin/logout",
           {},
           {
-            headers: {
-              token: this.user.token
-            }
+            token: true
           }
         )
         .then(res => {
@@ -213,14 +252,6 @@ export default {
           this.$store.commit("logout");
           this.$router.push("/login");
         });
-    },
-    //点击切换左侧导航
-    handleSelectLeftMenu(key) {
-      //获取左侧导航的索引
-      this.leftActiveIndex = key;
-      localStorage.setItem("left", this.leftActiveIndex);
-      //路由跳转
-      this.$router.push(this.leftMenuList[key].pathName);
     },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);

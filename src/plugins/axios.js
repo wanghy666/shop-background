@@ -22,7 +22,11 @@ const _axios = axios.create(config);
 //请求拦截器
 _axios.interceptors.request.use(
   function (config) {
-    // Do something before request is sent
+    //统一添加token
+    let token = localStorage.getItem('token');
+    if (config.token === true && token != '') {
+      config.headers['token'] = localStorage.getItem('token')
+    }
     return config;
   },
   function (error) {
@@ -39,6 +43,7 @@ _axios.interceptors.response.use(
   },
   function (error) {
     //捕获失败的相应
+    //如果有错误，捕获并提示错误信息
     if (error.response && error.response.data && error.response.data.errorCode) {
       Message.error(error.response.data.msg)
     }
