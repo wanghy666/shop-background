@@ -5,8 +5,6 @@
 </template>
 
 <script>
-// import Layout from "@/views/Layout.vue";
-
 export default {
   name: "app",
   methods: {

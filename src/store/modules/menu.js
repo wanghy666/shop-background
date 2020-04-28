@@ -1,7 +1,3 @@
-import {
-    stat
-} from "fs";
-
 export default {
     state: {
         topActiveIndex: "0",
@@ -31,6 +27,7 @@ export default {
         },
         changeMenuTree(state, menu) {
             state.topMenuList = menu;
+
         },
         changeTopActiveIndex(state, topIndex) {
             state.topActiveIndex = topIndex

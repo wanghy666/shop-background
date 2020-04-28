@@ -65,14 +65,20 @@ export default {
             this.isLoading = false;
             //存储用户信息(vuex+本地存储)
             this.$store.commit("login", data);
-            //导航菜单
+            //存储导航菜单
             this.$store.commit("createMenuTree", data.tree);
+            //存储用户角色
+            if (data.role && data.role.rules.length > 0) {
+              let rules = data.role.rules;
+              localStorage.setItem("rules", JSON.stringify(rules));
+            }
             //路由跳转
             this.$router.push({ name: "index" });
             // 成功提示
             this.$message({
               message: "登陆成功",
-              type: "success"
+              type: "success",
+              duration: 1000
             });
           });
       });

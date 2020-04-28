@@ -185,12 +185,12 @@ export default {
   watch: {
     $route() {
       //本地存储
-      console.log("改变了----");
       localStorage.setItem("left", this.leftActiveIndex);
       localStorage.setItem("top", this.topActiveIndex);
     }
   },
   methods: {
+    //初始化数据
     initNavBar() {
       //在本地存储中获取处理后的菜单数据
       let toplist = JSON.parse(localStorage.getItem("topMenuList"));

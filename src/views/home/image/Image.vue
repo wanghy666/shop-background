@@ -7,6 +7,8 @@
           <el-option label="升序" value="1"></el-option>
         </el-select>
         <el-input placeholder="请输入图片名称" style="width:150px" size="mini" class="mr-2"></el-input>
+        <el-button type="primary" v-auth="'规则管理'">规则管理11111</el-button>
+
         <el-button type="success" size="mini" @click="search" class="mr-auto">搜索</el-button>
         <el-button type="warning" size="mini" @click="cancelChooseAll" v-if="nowNum>0">取消选中</el-button>
         <el-button type="danger" size="mini" @click="delImgItem" v-if="nowNum>0">批量删除</el-button>
@@ -246,6 +248,10 @@ export default {
     }
   },
   methods: {
+    //获取相册列表
+    getAlbumList() {
+      // this.axios.get('/admin/imageclass/:page?limit=[limit]')
+    },
     //创建/修改相册
     editAlbum(obj) {
       //编辑状态
