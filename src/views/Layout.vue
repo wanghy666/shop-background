@@ -53,7 +53,7 @@
           </el-menu>
         </el-aside>
         <!-- 主体内容 -->
-        <el-main>
+        <el-main v-loading="loading">
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -66,8 +66,15 @@ import { mapState } from "vuex";
 import { stat } from "fs";
 export default {
   name: "Layout",
+  provide() {
+    return {
+      layout: this
+      // loading: this.loading
+    };
+  },
   data() {
     return {
+      loading: false
       // topActiveIndex: "0" //顶部一级导航选中索引（从0开始计算）
       //   leftActiveIndex: "1", //左侧二级导航选中索引
       // topMenuList: [
