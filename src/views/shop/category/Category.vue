@@ -1,6 +1,7 @@
 <template>
   <div class="category-wrap">
     why分支上的改变
+    why这里做了修改
     <div class="border-bottom p-2">
       <el-button @click="createTop" size="mini" style="background-color:teal;color:white">创建顶级分类</el-button>
     </div>
