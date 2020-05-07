@@ -43,6 +43,14 @@ const routes = [{
         },
         component: () => import('@/views/shop/category/Category.vue')
       },
+      {
+        path: 'shop/sku/list',
+        name: 'sku',
+        meta: {
+          title: '商品规格'
+        },
+        component: () => import('@/views/shop/sku/index.vue')
+      },
     ]
   }, {
     path: '/index',
