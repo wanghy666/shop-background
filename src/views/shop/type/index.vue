@@ -1,6 +1,7 @@
 <template>
   <div class="wrap">
     <div class="top" style="box-sizing:border-box;margin:20px">
+      1234567
       <el-button type="success" @click="editType(false)">添加类型</el-button>
       <el-button type="danger" @click="delType(false)">批量删除</el-button>
     </div>
