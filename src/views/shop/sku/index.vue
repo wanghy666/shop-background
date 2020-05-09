@@ -99,13 +99,6 @@ export default {
         //   status: 0,
         //   operation: 0
         // },
-        // {
-        //   name: "尺码",
-        //   value: "s,m,l",
-        //   sort: 11,
-        //   status: 0,
-        //   operation: 0
-        // }
       ],
       total: 0, //总条数
       pageSizes: [15, 20, 30, 50],
