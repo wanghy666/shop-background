@@ -59,6 +59,14 @@ const routes = [{
         },
         component: () => import('@/views/shop/type/index.vue')
       },
+      {
+        path: 'shop/comment/list',
+        name: 'comment',
+        meta: {
+          title: '商品评论'
+        },
+        component: () => import('@/views/shop/comment/index.vue')
+      },
     ]
   }, {
     path: '/index',
