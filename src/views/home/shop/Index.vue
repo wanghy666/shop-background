@@ -7,14 +7,28 @@
       </el-breadcrumb>
     </div>
     <div class="content">
-      <ul>
-        <li>全部</li>
-        <li>审核中</li>
-        <li>出售中</li>
-        <li>已下架</li>
-        <li>库存预警</li>
-        <li>回收站</li>
-      </ul>
+      <el-menu :default-active="activeIndex"  class="el-menu-demo" mode="horizontal" @select="handleSelect">
+        <el-menu-item
+        v-for="(item,index) in navlist"
+        :key="index"
+        :index="index.toString()"
+        >
+          <span>{{item.name}}</span>
+        </el-menu-item>
+      </el-menu>
+      <router-view/>
+    </div>
+    <div class="bottom">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage4"
+        :page-sizes="[10, 20, 50, 100]"
+        :page-size="10"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="17"
+        >
+      </el-pagination>
     </div>
   </div>
 </template>
@@ -23,7 +37,50 @@
 export default {
   name:"shop",
   data(){
-    return{}
+    return{
+      navlist:[
+        {
+          path:'shop/goods/list/all',
+          name:'全部'
+        },{
+          path:'shop/goods/list/examine',
+          name:'审核中'
+        },{
+          path:'shop/goods/list/sale',
+          name:'出售中'
+        },{
+          path:'shop/goods/list/offline',
+          name:'已下架'
+        },{
+          path:'shop/goods/list/stock',
+          name:'库存预警'
+        },{
+          path:'shop/goods/list/recovery',
+          name:'回收站'
+        }
+      ],
+      activeIndex: '0',
+      currentPage4: 1
+    }
+  },
+  methods:{
+    handleSelect(key, keyPath) {//导航栏
+      console.log(key);
+      for (let i in this.navlist){
+        if(key == i){
+          this.$router.push(`/${this.navlist[key].path}`)
+        }
+      }
+    },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+    }
+  },
+  components:{
+   
   }
 }
 </script>
@@ -36,22 +93,30 @@ export default {
 }
 .content{
   margin:0 20px;
-  height:40px;
-  border-bottom:2px solid #eceef5;
+  height:614px;
 
-  ul{
+  .el-menu{
     padding:0;
     margin:0;
     list-style: none;
     display: flex;
+    height:40px;
+    border-bottom:2px solid #eceef5;
 
-
-    li{
-      font:14px/40px "微软雅黑";
+    .el-menu-item{
+      height:38px;
+      font:14px/38px "微软雅黑";
       font-weight: 500;
       color:#303133;
       padding:0 20px;
     }
   }
+}
+.bottom{
+  height:60px;
+  border-top:2px solid #dfe2e6;
+  color:#616266;
+  // padding:10px;
+  // font-size:14px;
 }
 </style>

@@ -33,7 +33,40 @@ const routes = [{
         meta: {
           title: '商品列表'
         },
-        component: () => import('@/views/home/shop/Index.vue')
+        component: () => import('@/views/home/shop/Index.vue'),
+        // redirect:'/shop/goods/list/all',
+        children:[
+          {
+            name:'all',
+            path:'all',
+            component:() => import('@/views/home/shop/All.vue')
+          },
+          {
+            name:'examine',
+            path:'examine',
+            component:() => import('@/views/home/shop/Examine.vue')
+          },
+          {
+            name:'sale',
+            path:'sale',
+            component:() => import('@/views/home/shop/Sale.vue')
+          },
+          {
+            name:'offline',
+            path:'offline',
+            component:() => import('@/views/home/shop/Offline.vue')
+          },
+          {
+            name:'stock',
+            path:'stock',
+            component:() => import('@/views/home/shop/Stock.vue')
+          },
+          {
+            name:'recovery',
+            path:'recovery',
+            component:() => import('@/views/home/shop/Recovery.vue')
+          }
+        ]
       },
       {
         path: 'shop/category/list',
