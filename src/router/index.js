@@ -76,6 +76,30 @@ const routes = [{
         },
         component: () => import('@/views/shop/category/Category.vue')
       },
+      {
+        path: 'shop/sku/list',
+        name: 'sku',
+        meta: {
+          title: '商品规格'
+        },
+        component: () => import('@/views/shop/sku/index.vue')
+      },
+      {
+        path: 'shop/type/list',
+        name: 'type',
+        meta: {
+          title: '商品类型'
+        },
+        component: () => import('@/views/shop/type/index.vue')
+      },
+      {
+        path: 'shop/comment/list',
+        name: 'comment',
+        meta: {
+          title: '商品评论'
+        },
+        component: () => import('@/views/shop/comment/index.vue')
+      },
     ]
   }, {
     path: '/index',
