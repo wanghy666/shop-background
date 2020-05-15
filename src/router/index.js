@@ -1,9 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Layout from '@/views/Layout.vue'
-import {
-  Message
-} from 'element-ui'
+import {Message} from 'element-ui'
 
 
 Vue.use(VueRouter)
@@ -34,7 +32,7 @@ const routes = [{
           title: '商品列表'
         },
         component: () => import('@/views/home/shop/Index.vue'),
-        // redirect:'/shop/goods/list/all',
+        redirect:'/shop/goods/list/all',
         children:[
           {
             name:'all',

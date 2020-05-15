@@ -15,11 +15,14 @@
         </div>
         <div class="content">
             <el-table
+                class="table"
                 border
+                height="508"
                 ref="multipleTable"
                 :data="tableData"
                 tooltip-effect="dark"
                 style="width: 100%"
+                :row-style="{height:'110px'}"
                 @selection-change="handleSelectionChange"
             >
                 <el-table-column
@@ -35,7 +38,16 @@
                     <template 
                         slot-scope="scope"
                     >
-                        {{ scope.row.date }}                       
+                        <div style="display:flex">
+                            <div style="margin-right:16px">
+                                <img :src="scope.row.cover"/>
+                            </div>   
+                            <div style="font-size:14px">
+                                <div style="margin-bottom:16px;">{{ scope.row.title }}</div>
+                                <div>分类:{{ scope.row.category_id }}</div> 
+                                <div>时间:{{ scope.row.create_time }}</div>
+                            </div>
+                        </div>                                           
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -43,6 +55,11 @@
                     label="实际销量"
                     width="70"
                 >
+                    <template
+                        slot-scope="scope"
+                    >
+                        {{scope.row.name}}
+                    </template>
                 </el-table-column>
                 <el-table-column
                     prop="goodsState"
@@ -90,38 +107,52 @@ export default {
     data() {
       return {
         tableData: [{
-          date: '2016-05-03',
-          name: '王小虎',
+          create_time: '2016-05-03',
+          title: '王小虎',
           address: '上海市普陀区金沙江路 1518 弄'
         }, {
           date: '2016-05-02',
-          name: '王小虎',
+          title: '王二小',
           address: '上海市普陀区金沙江路 1518 弄'
         }, {
           date: '2016-05-04',
-          name: '王小虎',
+          title: '王小明',
           address: '上海市普陀区金沙江路 1518 弄'
         }, {
           date: '2016-05-01',
-          name: '王小虎',
+          title: '王小花',
           address: '上海市普陀区金沙江路 1518 弄'
         }, {
           date: '2016-05-08',
-          name: '王小虎',
+          title: '王小虎',
           address: '上海市普陀区金沙江路 1518 弄'
         }, {
           date: '2016-05-06',
-          name: '王小虎',
+          title: '王小虎',
           address: '上海市普陀区金沙江路 1518 弄'
         }, {
           date: '2016-05-07',
-          name: '王小虎',
+          title: '王小虎',
           address: '上海市普陀区金沙江路 1518 弄'
         }],
         multipleSelection: []
       }
     },
+    created(){
+        this.init()
+    },
     methods: {
+        //初始化数据
+        init(){
+            this.loading = true;
+            this.axios
+            .get(`/admin/goods/1`,{ token: true })
+            .then( res=>{
+                console.log(res.data.data)
+                this.tableData = res.data.data.list
+            })
+            .catch()
+        },
     //   toggleSelection(rows) {
     //     if (rows) {
     //       rows.forEach(row => {
@@ -131,9 +162,9 @@ export default {
     //       this.$refs.multipleTable.clearSelection();
     //     }
     //   },
-    //   handleSelectionChange(val) {
-    //     this.multipleSelection = val;
-    //   }
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+      }
     },
     mounted(){
         console.log(123)
@@ -219,6 +250,17 @@ export default {
                     border:1px solid #dddfe6;
                 }
             }
+        }
+        .content{
+            // .shopp{
+            //     display: flex;
+               img{
+                    width:60px;
+                    height:60px;
+                }
+                
+            // }
+            
         }
     }
     

@@ -23,10 +23,10 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="currentPage4"
-        :page-sizes="[10, 20, 50, 100]"
-        :page-size="10"
+        :page-sizes="[5, 10, 15, 20]"
+        :page-size="limit"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="17"
+        :total="totalCount"
         >
       </el-pagination>
     </div>
@@ -60,10 +60,22 @@ export default {
         }
       ],
       activeIndex: '0',
-      currentPage4: 1
+      currentPage4: 1,
+      totalCount:19,
+      limit:5
     }
   },
+  created(){
+    this.init()
+  },
   methods:{
+    init(){
+      this.axios.get(`/admin/goods/1`,{ token: true })
+      .then(res=>{
+        this.totalCount = res.data.data.totalCount
+      })
+      .catch()
+    },
     handleSelect(key, keyPath) {//导航栏
       console.log(key);
       for (let i in this.navlist){
@@ -74,9 +86,10 @@ export default {
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
+      this.limit = val
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      // console.log(`当前页: ${val}`);
     }
   },
   components:{
@@ -116,7 +129,7 @@ export default {
   height:60px;
   border-top:2px solid #dfe2e6;
   color:#616266;
-  // padding:10px;
-  // font-size:14px;
+  padding:10px;
+  font-size:14px;
 }
 </style>
