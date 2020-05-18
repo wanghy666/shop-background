@@ -7,6 +7,8 @@ import {
   Loading
 } from 'element-ui'
 
+
+/* ----------  全局的加载动画  ------------ */
 let loading;
 ////开始加载动画
 function startLoading() {
@@ -40,28 +42,34 @@ export function tryHideFullScreenLoading() {
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
 let config = {
-  // baseURL: process.env.baseURL || process.env.apiUrl || ""
-  // timeout: 60 * 1000, // Timeout
-  // withCredentials: true, // Check cross-site Access-Control
+  baseURL: process.env.baseURL || process.env.apiUrl || "",
+  timeout: 60 * 1000, // Timeout
+  withCredentials: true, // Check cross-site Access-Control
 };
 
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 const _axios = axios.create(config);
+
+
+
 
 //请求拦截器
 _axios.interceptors.request.use(
-  function (config) {
+  (config) => {
     showFullScreenLoading()
-    //统一添加token
-    let token = localStorage.getItem('token');
-    if (config.token === true && token != '') {
-      config.headers['token'] = localStorage.getItem('token')
-    }
+    //------统一添加token
+    config.headers['token'] = localStorage.getItem('token')
+
+    // let token = localStorage.getItem('token');
+    // if (config.token === true && token != '') {
+    //   config.headers['token'] = localStorage.getItem('token')
+    // }
     return config;
   },
-  function (error) {
+  (error) => {
     // Do something with request error
     return Promise.reject(error);
   }
@@ -69,12 +77,12 @@ _axios.interceptors.request.use(
 
 // 相应拦截器
 _axios.interceptors.response.use(
-  function (response) {
+  (response) => {
     //捕获成功的相应
-    tryHideFullScreenLoading()
+    tryHideFullScreenLoading() //成功后结束动画
     return response;
   },
-  function (error) {
+  (error) => {
     //捕获失败的相应
     tryHideFullScreenLoading() //如果错误也结束动画
     //如果有错误，捕获并提示错误信息
@@ -86,7 +94,6 @@ _axios.interceptors.response.use(
 );
 
 Plugin.install = function (Vue, options) {
-  // console.log(options);
   Vue.axios = _axios;
   window.axios = _axios;
   Object.defineProperties(Vue.prototype, {

@@ -11,14 +11,25 @@
             :class="[skuId==index?'active-sku':'', 'border-bottom']"
             @click="changeSku(index)"
           >{{item.name}}</div>
-          <div class="d-flex" style="width:100%;height:30px">
-            <div style="width:48%;text-align:center" class="border-right">
-              <i class="el-icon-arrow-left" style="font-size:20px;line-height:30px"></i>
-            </div>
-            <div style="width:48%;text-align:center">
-              <i class="el-icon-arrow-right" style="font-size:20px;line-height:30px"></i>
-            </div>
-          </div>
+          <!-- 切换上下页 -->
+          <el-button-group style="width:100%">
+            <el-button
+              plain
+              icon="el-icon-arrow-left"
+              style="width:50%"
+              :disabled="skuPage===1"
+              @click="changeSkuList({pageType:-1})"
+            >上一页</el-button>
+            <el-button
+              plain
+              style="width:50%"
+              :disabled="skuPage >= Math.ceil(skuTotalCount/10)"
+              @click="changeSkuList({pageType:1})"
+            >
+              下一页
+              <i class="el-icon-arrow-right el-icon--right"></i>
+            </el-button>
+          </el-button-group>
         </div>
 
         <div style="width:calc(100% - 150px)">
@@ -67,6 +78,10 @@ export default {
       default: 1
     },
     skuLimit: {
+      type: Number,
+      default: 10
+    },
+    skuTotalCount: {
       type: Number,
       default: 10
     },
@@ -121,6 +136,11 @@ export default {
         this.$emit("getConfirmSku", item);
       }
       this.modalClose();
+    },
+    //切换商品列表上下页
+    changeSkuList(obj) {
+      let { pageType } = obj; //pageType=-1上一页，pageType=1下一页
+      this.$emit("changeSkuList", pageType);
     }
   }
 };

@@ -6,6 +6,9 @@ import store from './store'
 import './plugins/element.js'
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
+// Vue.prototype.$axios = axios;
+// import axios from '@/api/index.js';
+// Vue.prototype.$axios = axios;
 
 
 
