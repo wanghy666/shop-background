@@ -70,10 +70,12 @@
     <sku-dialog
       :skuList="skuList"
       :skuPage="skuPage"
+      :skuTotalCount="skuTotalCount"
       :skuLimit="skuLimit"
       v-if="skuDialogVisible"
       :visible.sync="skuDialogVisible"
       @getConfirmSku="getConfirmSkuHandle"
+      @changeSkuList="changeSkuListHandle"
     ></sku-dialog>
   </div>
 </template>
@@ -81,7 +83,7 @@
 <script>
 import skuDialog from "@/components/skuDialog.vue";
 import typeDialog from "@/views/shop/type/typeDialog.vue";
-import { toUnicode } from "punycode";
+import { getTypeList } from "@/api/api";
 export default {
   components: { skuDialog, typeDialog },
   data() {
@@ -109,6 +111,7 @@ export default {
       //规格选择弹框
       skuDialogVisible: false,
       skuList: [],
+      skuTotalCount: 0, //skuList的数量和
       skuPage: 1,
       skuLimit: 10
     };
@@ -124,6 +127,7 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
+
     //获取商品类型列表
     init() {
       this.axios
@@ -155,9 +159,13 @@ export default {
         })
         .then(res => {
           let { list } = res.data.data;
+          this.skuTotalCount = res.data.data.totalCount;
           //处理规格选项对应的选项值列表，为数据添加一个新的属性
           list.forEach(item => {
-            let arr = item.default.split(",");
+            let arr = [];
+            if (item.default) {
+              arr = item.default.split(",");
+            }
             item.list = arr.map(v => {
               return {
                 name: v,
@@ -287,7 +295,18 @@ export default {
     },
     /* ---商品规格弹框 ---*/
     //获取商品规格列表
-    getSkuListHandle() {
+    getSkuListHandle(skuPage) {
+      this.skuPage = skuPage;
+      this.getSkuList();
+    },
+    //切换商品规格列表的上下页
+    changeSkuListHandle(pageType) {
+      if (pageType == -1) {
+        //上一页
+        this.skuPage -= 1;
+      } else {
+        this.skuPage += 1;
+      }
       this.getSkuList();
     },
     //确定选择商品规格

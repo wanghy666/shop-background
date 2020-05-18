@@ -140,7 +140,7 @@ export default {
     },
     //添加关联规格
     chooseSku() {
-      this.$emit("getSkuList", 1111);
+      this.$emit("getSkuList", 1);
     },
     //删除关联规格
     delSku(item, index) {
